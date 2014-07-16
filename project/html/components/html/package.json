@@ -1,0 +1,34 @@
+{
+    "eid": "10",
+    "version": "1.0",
+    "name": "html",
+    "title": "HTML",
+    "description": "HTML组件可以用于编写HTML代码。",
+    "font_icon": "&#xe02a;",
+    "area": "111",
+    "category": "2",
+    "seq": "12",
+    "html": "<div class=\"mod mod-html\">{{content}}</div>",
+    "example_json": {
+        "content": "<div style='height:50px; line-height:50px; text-align:center; color: #b2b2b2;'>HTML 代码</div>"
+    },
+    "data_config": {
+        "content": {
+            "type": "string",
+            "require": true,
+            "default": "<div style='height:50px; line-height:50px; text-align:center; color: #b2b2b2;'>HTML 代码</div>"
+        }
+    },
+    "vip": true,
+    "create_time": "1374671558",
+    "update_time": "1376017527",
+    "status": null,
+    "widgets": {
+        "style": [],
+        "property": [
+            {
+                "data_name": "content"
+            }
+        ]
+    }
+}

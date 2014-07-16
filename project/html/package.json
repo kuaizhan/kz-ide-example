@@ -1,0 +1,15 @@
+{
+    "entrance": "",
+    "proxy-prefixes": {
+        "common": "",
+        "manage-page": "",
+        "manage-api": "",
+        "backend-page": "",
+        "backend-api": "",
+        "page": "",
+        "api": ""
+    },
+    "proxy-paths": {
+        "common": "*"
+    }
+}
