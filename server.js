@@ -1,4 +1,4 @@
-var template = ['',
+var template = [' ',
     '<!DOCTYPE html>',
     '<html>',
     '<head>',
@@ -51,8 +51,21 @@ var processPost = function (request, response, callback) {
         response.end();
     }
 }
+
+var proxy = function ( req, res) {
+    var request = require("request");
+    var p = 'http://www.kuaizhan.com'+req.url;
+    req.headers['Host'] = "www.kuaizhan.com";
+    var opt ={
+        method:req.method,
+        url:p,
+        headers:req.headers
+    };
+    console.log(opt);
+    request(opt).pipe(res);
+}
 var _handlers = {
-    "/readfile": function (req, res) {
+    "readfile": function (req, res) {
         var _path = querystring.parse(url.parse(req.url).query).path;
         res.writeHead(200, {'Content-Type': 'text/text', 'charset': 'utf-8'});
         _path = path.join(__dirname, 'project', _path);
@@ -62,25 +75,18 @@ var _handlers = {
             res.end("");
         }
     },
-    /*    "/savefile": function (req, res) {
-     if (req.method == 'POST') {
-     processPost(req, res, function () {
-     console.log(req.post);
-     var _path = req.post.path;
-     _path = path.join(__dirname, _path);
-     fs.writeFileSync(_path, req.post.content, 'utf-8')
-     res.writeHead(200, {'Content-Type': 'text/text', 'charset': 'utf-8'});
-
-     res.end("success");
-     });
-     } else {
-     res.writeHead(200, "OK", {'Content-Type': 'text/plain'});
-     res.end();
-     }
-
-
-     },*/
-    "/readcomponents": function (req, res) {
+    "project": function (req, res) {
+        var p = url.parse(req.url).pathname;
+        var _path = path.join(__dirname, p);
+        if (fs.existsSync(_path)) {
+            var extName = path.extname(_path);
+            res.writeHead(200, {'Content-Type': head_ref[extName], 'charset': 'utf-8'});
+            res.end(fs.readFileSync(_path, 'utf-8'));
+        } else {
+            res.end("");
+        }
+    },
+    "readcomponents": function (req, res) {
         res.writeHead(200, {'Content-Type': 'application/json', 'charset': 'utf-8'});
 
         var plugins = fs.readdirSync(path.join(__dirname, "project/"));
@@ -101,34 +107,40 @@ var _handlers = {
             }
         });
         res.end(JSON.stringify(components));
+    },
+    "homepage": function (req, res) {
+        proxy( req, res);
+    },
+    "nav":function (req, res) {
+
+        proxy( req, res);
+    },
+    "page":function (req, res) {
+
+        proxy( req, res);
+    },
+    "site":function (req, res) {
+        proxy( req, res);
     }
 
 };
-var head_ref={".js":"application/x-javascript",".json":"application/json",".css":"text/css"};
+var head_ref = {".js": "application/x-javascript", ".json": "application/json", ".css": "text/css"};
 var handleRequest = function (p, req, res) {
     p = p.toLowerCase();
-    if (/^\/project\//ig.test(p)) {
-        var _path = path.join(__dirname, p);
-        if (fs.existsSync(_path)) {
-            var extName =path.extname(_path);
-            res.writeHead(200, {'Content-Type': head_ref[extName], 'charset': 'utf-8'});
-            res.end(fs.readFileSync(_path, 'utf-8'));
-        }else{
-            res.end("");
-        }
-    }
-    else if (p in _handlers) {
+    if (p in _handlers) {
         _handlers[p](req, res);
-    } else {
+    }
+    else {
         renderIDE(req, res);
     }
 }
 
 http.createServer(function (req, res) {
-    handleRequest(url.parse(req.url).pathname, req, res);
-}).listen(1337, '127.0.0.1');
+    var path = url.parse(req.url).pathname.split("/")[1];
+    handleRequest(path, req, res);
+}).listen(80, 'dev.kuaizhan.com');
 process.on('uncaughtException', function (err) {
     console.log('Caught exception: ' + err);
 });
 
-console.log('Server running at http://127.0.0.1:1337/');
+console.log('Server running at http://dev.kuaizhan.com/');

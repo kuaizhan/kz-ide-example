@@ -1,0 +1,28 @@
+{
+  "name": "kz-ide",
+  "version": "0.0.1",
+  "description": "快站组件编辑器",
+  "main": "server.js",
+  "scripts": {
+    "test": "node server.js",
+    "start": "node server.js"
+  },
+  "dependencies":{
+    "request":"*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fireboy518/kz-ide-example.git"
+  },
+  "keywords": [
+    "node.js",
+    "kz",
+    "快站"
+  ],
+  "author": "shaochong",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fireboy518/kz-ide-example/issues"
+  },
+  "homepage": "https://github.com/fireboy518/kz-ide-example"
+}
