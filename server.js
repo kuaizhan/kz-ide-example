@@ -4,7 +4,7 @@ var template = [' ',
     '<head>',
     '<meta http-equiv="content-type" content="text/html; charset=UTF-8">',
     '    <script>',
-    '        var staticurl = "http://s0.kuaizhan.com";',
+    '        var staticurl = "http://s0.shaochong.com";',
     '    </script>',
     '</head>',
     '<body>',
@@ -15,12 +15,14 @@ var template = [' ',
     '</script>',
     '</html>'].join('');
 
+
 var http = require('http');
 var url = require('url');
 var querystring = require('querystring');
 var path = require('path');
 var fs = require('fs');
 
+var proxy_template = fs.readFileSync('./admin.html', 'utf-8');
 
 var renderIDE = function (req, res) {
     res.writeHead(200, {'Content-Type': 'text/html', 'charset': 'utf-8'});
@@ -52,18 +54,57 @@ var processPost = function (request, response, callback) {
     }
 }
 
-var proxy = function ( req, res) {
+var proxy = function (req, res) {
     var request = require("request");
-    var p = 'http://www.kuaizhan.com'+req.url;
+    var p = 'http://www.kuaizhan.com' + req.url;
     req.headers['Host'] = "www.kuaizhan.com";
-    var opt ={
-        method:req.method,
-        url:p,
-        headers:req.headers
+    var opt = {
+        method: req.method,
+        url: p,
+        headers: req.headers
     };
-    console.log(opt);
     request(opt).pipe(res);
 }
+
+var proxy_plugin = function (req, res) {
+    var qureyString = require('querystring');
+    var site_id = qureyString.parse(url.parse(req.url).query).site_id;
+    var template = proxy_template.replace("{{site_id}}", site_id);
+    var path = url.parse(req.url).pathname.split("/");
+    //console.log(path);
+    var proxy_type = path[2];
+    var plugin_name = path[3];
+    var proxy_json = require('./project/' + plugin_name + "/package.json");
+    //console.log(proxy_json);
+    var backend_page = proxy_json["proxy-prefixes"]["backend-page"];
+
+    var request = require("request");
+    var p = backend_page + req.url.replace('plugin/' + proxy_type + '/' + plugin_name + '/', '');
+    req.headers['Host'] = url.parse(backend_page).host;
+    var opt = {
+        method: req.method,
+        url: p,
+        headers: req.headers,
+        gzip: true
+    };
+    request(opt, function (err, response, body) {
+        res.writeHead(200, {'Content-Type': 'text/html', 'charset': 'utf-8'});
+        if(err){
+            console.log(err);
+            res.end(template.replace("{{page_content}}", JSON.stringify(err)));
+        }else{
+            if(response.status===200){
+            res.end(template.replace("{{page_content}}", body));
+            }else{
+                res.end(template.replace("{{page_content}}", JSON.stringify(response)));
+            }
+        }
+
+
+    });
+
+}
+
 var _handlers = {
     "readfile": function (req, res) {
         var _path = querystring.parse(url.parse(req.url).query).path;
@@ -109,18 +150,21 @@ var _handlers = {
         res.end(JSON.stringify(components));
     },
     "homepage": function (req, res) {
-        proxy( req, res);
+        proxy(req, res);
     },
-    "nav":function (req, res) {
+    "nav": function (req, res) {
 
-        proxy( req, res);
+        proxy(req, res);
     },
-    "page":function (req, res) {
+    "page": function (req, res) {
 
-        proxy( req, res);
+        proxy(req, res);
     },
-    "site":function (req, res) {
-        proxy( req, res);
+    "site": function (req, res) {
+        proxy(req, res);
+    },
+    "plugin": function (req, res) {
+        proxy_plugin(req, res);
     }
 
 };

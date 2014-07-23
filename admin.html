@@ -1,0 +1,108 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>搜狐快站 - 插件</title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="keywords" content="搜狐快站,建站,WebApp,生成App,App开发,微官网,微营销,自助建站,免费建站,企业建站,可视化建站,移动建站" />
+    <meta name="description" content="搜狐快站是一款可视化建站工具，包括拖拽生成页面，强大的内容管理，丰富美观的模板，适配所有移动设备，一键生成App等功能。" />
+    <link rel="shortcut icon" type="image/x-icon" href="http://s0.kuaizhan.com/res/homepage/favicon.ico?v=-2.0" />
+    <link rel="stylesheet" type="text/css" href="http://s0.kuaizhan.com/res/ui/css/screen.css?v=-2.0">
+    <link rel="stylesheet" type="text/css" href="http://s0.kuaizhan.com/res/ui/css/base.css?v=-2.0">
+    <script src="http://s0.kuaizhan.com/res/skin/js/lib/jquery-2.0.3.min.js?v=-2.0"></script>
+
+    <!--如果不是chrome浏览器，则直接跳转到错误页-->
+    <script type="text/javascript">
+        if (!navigator.userAgent.match(/chrome|safari/i)) {
+            window.location = "/homepage/support";
+        }
+        function keeponline(){
+            $.ajax({type:"POST",url:"/passport/ajax-online",cache:false,data:null,success:null});
+        }
+        window.setInterval("keeponline()",600000);
+    </script>
+ <script type="text/javascript">
+    window.KZSite = {
+        'site_id': "{{site_id}}"
+    };
+</script>
+</head>
+<body>
+<header>
+    <div class="logo-user">
+        <a class="logo" href="/site/"><img src="http://s0.kuaizhan.com/res/skin/images/logo.png?v=-2.0" height="30" alt=""></a>
+        <dl class="user">
+            <dt class="multi_sites" title="t22222">t22222</dt>
+        </dl>
+    </div>
+    <nav>
+        <dl>
+            <dt class=" nav-head" ><a href="/page/?site_id=8500653249">页面</a></dt>
+        </dl>
+        <dl>
+            <dt ><a href="/post/?site_id=8500653249">栏目</a></dt>
+        </dl>
+        <dl>
+            <dt ><a href="/mbbs/topic-list?site_id=8500653249">论坛</a></dt>
+        </dl>
+        <dl>
+            <dt><a href="http://ec.kuaizhan.com/admin?site_id=8500653249&ecinf=ZnhCAIaMR7PFGt3IsD8YdhAnDfrcda4u">电商</a></dt>
+        </dl>
+        <dl>
+            <dt class="cur"><a href="/plugin/?site_id=8500653249">插件</a></dt>
+        </dl>
+        <dl>
+            <dt ><a href="/app/generate?site_id=8500653249">APP</a></dt>
+        </dl>
+        <dl>
+            <dt ><a href="/pic/?site_id=8500653249">素材</a></dt>
+        </dl>
+        <dl>
+            <dt ><a href="/site/settings?site_id=8500653249">管理</a></dt>
+        </dl>
+    </nav>
+    <a class="btn-publish-site" href="/site/publish?site_id=8500653249" style="width:100px;">发布</a>
+    <div class="ctr">
+        <dl class="my">
+            <dt></dt>
+            <dd>
+                <ul>
+                    <li><a class="ico-home" href="/site/">我的站点</a></li>
+                    <li><a class="ico-help" href="/help/" target="_blank">帮助</a></li>
+                    <li><a class="ico-out" href="/passport/logout">退出</a></li>
+                </ul>
+                <i class="arrow"></i>
+            </dd>
+        </dl>
+    </div>
+</header>
+<div class="plugin-page-main">
+
+    {{page_content}}
+
+</div>
+
+
+<script src="http://s0.kuaizhan.com/res/skin/js/lib/bootstrap.js?v=-2.0"></script>
+<script src="http://s0.kuaizhan.com/res/skin/js/sohuz.js?v=-2.0"></script>
+<script src="http://s0.kuaizhan.com/res/skin/js/ui.common.js?v=-2.0"></script>
+<script src="http://s0.kuaizhan.com/res/skin/js/jsScroller.js?v=-2.0"></script>
+<script src="http://s0.kuaizhan.com/res/skin/js/theme-nav.js?v=-2.0"></script>
+<script>
+    (function(i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function() {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-48620438-1', 'kuaizhan.com');
+    ga('send', 'pageview');
+</script>
+</body>
+</html>
