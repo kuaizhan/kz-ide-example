@@ -84,6 +84,41 @@
 
 * 测试发布模拟了快站服务器端生成页面的逻辑，可以预览组件在发布后的状态，用于调试。
 
+##  管理页面转发规则
+
+* http://dev.kuaizhan.com/plugin/page-proxy/{plugin_name}/{entrance_page}?site_id=8500653249
+
+说明：根据插件package.json转发管理页
+
+例如：插件example 的package.json 如下：
+
+```JSON
+
+{
+    "entrance": "/register.html",
+    "proxy-prefixes": {
+        "common": "",
+        "backend-page": "http://www.example.com/kuaizhan",
+        "backend-api": "",
+        "page": "",
+        "api": ""
+    },
+    "proxy-paths": {
+        "common": "*"
+    }
+}
+
+```
+根据如上配置，访问：
+
+http://dev.kuaizhan.com/plugin/page-proxy/example/register.html?site_id=8500653249
+
+将请求：
+
+http://www.example.com/kuaizhan/register.html?site_id=8500653249
+
+
+
 ## 常见问题
 
 * 显示未登陆用户
