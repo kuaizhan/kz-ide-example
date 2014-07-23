@@ -13,7 +13,8 @@
 
 * 首先保证本地具有node.js环境，详细，参考 node.js 官网
 * 下载工程文件解压到本地
-* 配置本地Host 127.0.0.1 dev.kuaizhan.com 
+* 配置本地Host 127.0.0.1 dev.kuaizhan.com
+* 运行 npm install 安装依赖 
 * 运行 node server.js
 * 在chrome 中打开 <http://dev.kuaizhan.com/>
 
