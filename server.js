@@ -77,7 +77,8 @@ var proxy_plugin = function (req, res) {
     var plugin_name = path[2];
     var proxy_json = require('./project/' + plugin_name + "/package.json");
     //console.log(proxy_json);
-    var backend_page = proxy_json["proxy-prefixes"]["backend-page"];
+    var proxy_common = proxy_json["proxy-prefixes"]["common"];
+    var backend_page = proxy_json["proxy-prefixes"]["backend-page"] || proxy_common;
 
     var request = require("request");
     var p = backend_page + req.url.replace('pp/' + plugin_name + '/', '');
@@ -90,7 +91,7 @@ var proxy_plugin = function (req, res) {
     };
     if (/\.(css|js|jpg|jpeg|gif|png)/ig.test(path[path.length - 1])) {
         console.log(p);
-        res.writeHead(302, {'Location': req.url.replace('/pp/','/pf/')});
+        res.writeHead(302, {'Location': req.url.replace('/pp/', '/pf/')});
         res.end();
     } else {
         request(opt, function (err, response, body) {
@@ -119,7 +120,9 @@ var proxy_plugin_api = function (req, res) {
     var plugin_name = path[2];
     var proxy_json = require('./project/' + plugin_name + "/package.json");
     //console.log(proxy_json);
-    var backend_api = proxy_json["proxy-prefixes"]["backend-api"];
+    var proxy_common = proxy_json["proxy-prefixes"]["common"];
+    var backend_api = proxy_json["proxy-prefixes"]["backend-api"] || proxy_common;
+
 
     var request = require("request");
     var p = backend_api + req.url.replace('pa/' + plugin_name + '/', '');
@@ -141,7 +144,8 @@ var proxy_plugin_file = function (req, res) {
     var plugin_name = path[2];
     var proxy_json = require('./project/' + plugin_name + "/package.json");
     //console.log(proxy_json);
-    var backend_api = proxy_json["proxy-prefixes"]["backend-page"];
+    var proxy_common = proxy_json["proxy-prefixes"]["common"];
+    var backend_api = proxy_json["proxy-prefixes"]["backend-page"] || proxy_common;
 
     var request = require("request");
     var p = backend_api + req.url.replace('pf/' + plugin_name + '/', '');
