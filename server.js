@@ -4,7 +4,7 @@ var template = [' ',
     '<head>',
     '<meta http-equiv="content-type" content="text/html; charset=UTF-8">',
     '    <script>',
-    '        var staticurl = "http://s0.zhangyili.com";',
+    '        var staticurl = "http://s0.kuaizhan.com";',
     '    </script>',
     '</head>',
     '<body>',
@@ -90,11 +90,8 @@ var proxy_plugin = function (req, res) {
     };
     if (/\.(css|js|jpg|jpeg|gif|png)/ig.test(path[path.length - 1])) {
         console.log(p);
-        request({
-            method: req.method,
-            url: p,
-            headers: req.headers
-        }).pipe(res);
+        res.writeHead(302, {'Location': req.url.replace('/pp/','/pf/')});
+        res.end();
     } else {
         request(opt, function (err, response, body) {
             res.writeHead(200, {'Content-Type': 'text/html', 'charset': 'utf-8'});
@@ -126,6 +123,28 @@ var proxy_plugin_api = function (req, res) {
 
     var request = require("request");
     var p = backend_api + req.url.replace('pa/' + plugin_name + '/', '');
+    req.headers['Host'] = url.parse(backend_api).host;
+    var opt = {
+        method: req.method,
+        url: p,
+        headers: req.headers,
+        gzip: true
+    };
+    request(opt).pipe(res);
+
+}
+
+var proxy_plugin_file = function (req, res) {
+
+    var path = url.parse(req.url).pathname.split("/");
+    //console.log(path);
+    var plugin_name = path[2];
+    var proxy_json = require('./project/' + plugin_name + "/package.json");
+    //console.log(proxy_json);
+    var backend_api = proxy_json["proxy-prefixes"]["backend-page"];
+
+    var request = require("request");
+    var p = backend_api + req.url.replace('pf/' + plugin_name + '/', '');
     req.headers['Host'] = url.parse(backend_api).host;
     var opt = {
         method: req.method,
@@ -192,7 +211,11 @@ var _handlers = {
     },
     "pa": function (req, res) {
         proxy_plugin_api(req, res);
+    },
+    "pf": function (req, res) {
+        proxy_plugin_file(req, res);
     }
+
 
 };
 var head_ref = {".js": "application/x-javascript", ".json": "application/json", ".css": "text/css"};
