@@ -4,7 +4,7 @@ var template = [' ',
     '<head>',
     '<meta http-equiv="content-type" content="text/html; charset=UTF-8">',
     '    <script>',
-    '        var staticurl = "http://s0.kuaizhan.com";',
+    '        var staticurl = "http://s0.zhangyili.com";',
     '    </script>',
     '</head>',
     '<body>',
@@ -69,17 +69,18 @@ var proxy = function (req, res) {
 var proxy_plugin = function (req, res) {
     var qureyString = require('querystring');
     var site_id = qureyString.parse(url.parse(req.url).query).site_id;
-    var template = proxy_template.replace("{{site_id}}", site_id);
+    var template = proxy_template.replace(/\{\{site_id\}\}/ig, site_id);
     var path = url.parse(req.url).pathname.split("/");
-    //console.log(path);
-    var proxy_type = path[2];
-    var plugin_name = path[3];
+    console.log(path);
+
+
+    var plugin_name = path[2];
     var proxy_json = require('./project/' + plugin_name + "/package.json");
     //console.log(proxy_json);
     var backend_page = proxy_json["proxy-prefixes"]["backend-page"];
 
     var request = require("request");
-    var p = backend_page + req.url.replace('plugin/' + proxy_type + '/' + plugin_name + '/', '');
+    var p = backend_page + req.url.replace('pp/' + plugin_name + '/', '');
     req.headers['Host'] = url.parse(backend_page).host;
     var opt = {
         method: req.method,
@@ -87,23 +88,55 @@ var proxy_plugin = function (req, res) {
         headers: req.headers,
         gzip: true
     };
-    request(opt, function (err, response, body) {
-        res.writeHead(200, {'Content-Type': 'text/html', 'charset': 'utf-8'});
-        if (err) {
-            console.log(err);
-            res.end(template.replace("{{page_content}}", JSON.stringify(err)));
-        } else {
-            if (response.statusCode == 200) {
-                res.end(template.replace("{{page_content}}", body));
+    if (/\.(css|js|jpg|jpeg|gif|png)/ig.test(path[path.length - 1])) {
+        console.log(p);
+        request({
+            method: req.method,
+            url: p,
+            headers: req.headers
+        }).pipe(res);
+    } else {
+        request(opt, function (err, response, body) {
+            res.writeHead(200, {'Content-Type': 'text/html', 'charset': 'utf-8'});
+            if (err) {
+                console.log(err);
+                res.end(template.replace("{{page_content}}", JSON.stringify(err)));
             } else {
-                res.end(template.replace("{{page_content}}", JSON.stringify(response)));
+                if (response.statusCode == 200) {
+                    res.end(template.replace("{{page_content}}", body));
+                } else {
+                    res.end(template.replace("{{page_content}}", JSON.stringify(response)));
+                }
             }
-        }
 
 
-    });
+        });
+    }
 
 }
+
+var proxy_plugin_api = function (req, res) {
+
+    var path = url.parse(req.url).pathname.split("/");
+    //console.log(path);
+    var plugin_name = path[2];
+    var proxy_json = require('./project/' + plugin_name + "/package.json");
+    //console.log(proxy_json);
+    var backend_api = proxy_json["proxy-prefixes"]["backend-api"];
+
+    var request = require("request");
+    var p = backend_api + req.url.replace('pa/' + plugin_name + '/', '');
+    req.headers['Host'] = url.parse(backend_api).host;
+    var opt = {
+        method: req.method,
+        url: p,
+        headers: req.headers,
+        gzip: true
+    };
+    request(opt).pipe(res);
+
+}
+
 
 var _handlers = {
     "readfile": function (req, res) {
@@ -154,8 +187,11 @@ var _handlers = {
     "page": proxy,
     "site": proxy,
     "changyan": proxy,
-    "plugin": function (req, res) {
+    "pp": function (req, res) {
         proxy_plugin(req, res);
+    },
+    "pa": function (req, res) {
+        proxy_plugin_api(req, res);
     }
 
 };
