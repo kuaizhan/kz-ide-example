@@ -4,7 +4,7 @@ var template = [' ',
     '<head>',
     '<meta http-equiv="content-type" content="text/html; charset=UTF-8">',
     '    <script>',
-    '        var staticurl = "http://s0.shaochong.com";',
+    '        var staticurl = "http://s0.kuaizhan.com";',
     '    </script>',
     '</head>',
     '<body>',
@@ -89,13 +89,13 @@ var proxy_plugin = function (req, res) {
     };
     request(opt, function (err, response, body) {
         res.writeHead(200, {'Content-Type': 'text/html', 'charset': 'utf-8'});
-        if(err){
+        if (err) {
             console.log(err);
             res.end(template.replace("{{page_content}}", JSON.stringify(err)));
-        }else{
-            if(response.status===200){
-            res.end(template.replace("{{page_content}}", body));
-            }else{
+        } else {
+            if (response.statusCode == 200) {
+                res.end(template.replace("{{page_content}}", body));
+            } else {
                 res.end(template.replace("{{page_content}}", JSON.stringify(response)));
             }
         }
@@ -149,20 +149,11 @@ var _handlers = {
         });
         res.end(JSON.stringify(components));
     },
-    "homepage": function (req, res) {
-        proxy(req, res);
-    },
-    "nav": function (req, res) {
-
-        proxy(req, res);
-    },
-    "page": function (req, res) {
-
-        proxy(req, res);
-    },
-    "site": function (req, res) {
-        proxy(req, res);
-    },
+    "homepage": proxy,
+    "nav": proxy,
+    "page": proxy,
+    "site": proxy,
+    "changyan": proxy,
     "plugin": function (req, res) {
         proxy_plugin(req, res);
     }
