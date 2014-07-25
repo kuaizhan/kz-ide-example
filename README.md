@@ -86,7 +86,13 @@
 
 ##  管理页面转发规则
 
-* http://dev.kuaizhan.com/plugin/page-proxy/{plugin_name}/{entrance_page}?site_id=8500653249
+说明：通过页面转发规则可以将集成的插件放置在同域内操作，前端请求将不再受跨域限制
+
+具体转发规则如下：
+
+* http://dev.kuaizhan.com/pp/{plugin_name}/{page}?site_id=8500653249
+* http://dev.kuaizhan.com/pa/{plugin_name}/{api_path}?{queryString}
+* http://dev.kuaizhan.com/pf/{plugin_name}/{file_path}
 
 说明：根据插件package.json转发管理页
 
@@ -99,8 +105,8 @@
     "proxy-prefixes": {
         "common": "",
         "backend-page": "http://www.example.com/kuaizhan",
-        "backend-api": "",
-        "page": "",
+        "backend-api": "http://api.example.com/",
+        "page": "http://static.example.com/",
         "api": ""
     },
     "proxy-paths": {
@@ -111,12 +117,25 @@
 ```
 根据如上配置，访问：
 
-http://dev.kuaizhan.com/plugin/page-proxy/example/register.html?site_id=8500653249
+http://dev.kuaizhan.com/pp/example/register.html?site_id=8500653249
 
-将请求：
+将转发对如下地址的请求：
 
 http://www.example.com/kuaizhan/register.html?site_id=8500653249
 
+
+http://dev.kuaizhan.com/pa/getApi?site_id=8500653249
+
+将转发对如下地址的请求：
+
+http://api.example.com/getApi?site_id=8500653249
+
+
+http://dev.kuaizhan.com/pf/image/icon.png
+
+将转发对如下地址的请求：
+
+http://static.example.com/image/icon.png
 
 
 ## 常见问题
