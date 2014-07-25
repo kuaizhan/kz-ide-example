@@ -115,7 +115,9 @@
 }
 
 ```
-根据如上配置，访问：
+根据如上配置，：
+
+---
 
 http://dev.kuaizhan.com/pp/example/register.html?site_id=8500653249
 
@@ -123,6 +125,7 @@ http://dev.kuaizhan.com/pp/example/register.html?site_id=8500653249
 
 http://www.example.com/kuaizhan/register.html?site_id=8500653249
 
+---
 
 http://dev.kuaizhan.com/pa/getApi?site_id=8500653249
 
@@ -130,6 +133,7 @@ http://dev.kuaizhan.com/pa/getApi?site_id=8500653249
 
 http://api.example.com/getApi?site_id=8500653249
 
+---
 
 http://dev.kuaizhan.com/pf/image/icon.png
 
@@ -137,6 +141,7 @@ http://dev.kuaizhan.com/pf/image/icon.png
 
 http://static.example.com/image/icon.png
 
+---
 
 ## 常见问题
 
