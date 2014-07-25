@@ -151,6 +151,22 @@ http://static.example.com/image/icon.png
 
 ## 常见问题
 
+* 运行node server.js 显示 
+
+```
+Caught Exception: Error: listen EACCESS
+```
+
+  mac 或 linux 下请运行： sudo node server.js
+
+  windows 下暂时需要修改端口号后运行
+
+  修改方式：在server.js 文件中找到 .listen(80, 'dev.kuaizhan.com');
+  
+  修改为空闲端口，例如：8010
+
+  *修改后可能会造成部分数据产生跨域问题，影响暂时不打，我们会逐步寻找更多解决办法*
+
 * 显示未登陆用户
 
    访问http://kuaizhan.com/ 登陆。
