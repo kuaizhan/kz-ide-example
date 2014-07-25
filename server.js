@@ -133,7 +133,14 @@ var proxy_plugin_api = function (req, res) {
         headers: req.headers,
         gzip: true
     };
-    request(opt).pipe(res);
+    if(req.method.toLowerCase()=="put"||req.method.toLowerCase()=="post"){
+        req.on("data",function(chunk){
+            opt.body = chunk;
+            request(opt).pipe(res);
+        })
+    }else{
+       request(opt).pipe(res);
+    }
 
 }
 
