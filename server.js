@@ -29,30 +29,6 @@ var renderIDE = function (req, res) {
     res.end(template);
 }
 
-var processPost = function (request, response, callback) {
-    var queryData = "";
-    if (typeof callback !== 'function') return null;
-
-    if (request.method == 'POST') {
-        request.on('data', function (data) {
-            queryData += data;
-            if (queryData.length > 1e6) {
-                queryData = "";
-                response.writeHead(413, {'Content-Type': 'text/plain'}).end();
-                request.connection.destroy();
-            }
-        });
-
-        request.on('end', function () {
-            request.post = querystring.parse(queryData);
-            callback();
-        });
-
-    } else {
-        response.writeHead(405, {'Content-Type': 'text/plain'});
-        response.end();
-    }
-}
 
 var proxy = function (req, res) {
     var request = require("request");
@@ -63,7 +39,58 @@ var proxy = function (req, res) {
         url: p,
         headers: req.headers
     };
+    if (req.method.toLowerCase() == "put" || req.method.toLowerCase() == "post") {
+        req.on("data", function (chunk) {
+            opt.body = chunk;
+
+        });
+        req.on("end",function(){
+            request(opt).pipe(res);
+        })
+    } else {
+        request(opt).pipe(res);
+    }
+
+}
+var proxy_front = function (req, res) {
+
+    if(url.parse(req.url).pathname.toLowerCase()==="/auth/api/authorization"){
+        var qureyString = require('querystring');
+        var auth_token = qureyString.parse(url.parse(req.url).query).auth_token;
+        proxy_auth(auth_token,res);
+        return;
+    }
+
+
+    var request = require("request");
+    var p = 'http://m.kuaizhan.com' + req.url;
+
+    req.headers['host'] = "m.kuaizhan.com";
+    var opt = {
+        method: req.method,
+        url: p,
+        headers: req.headers,
+        gzip: true
+    };
+    console.log(req.headers);
     request(opt).pipe(res);
+}
+var proxy_auth = function (token, res) {
+    var request = require("request");
+    request("http://passport.kuaizhan.com/main/api/authorization?callback=/&auth_token="+token,function(err,response,body){
+
+        var data = JSON.parse(body);
+        console.log(data);
+        if(data.msg){
+            res.setHeader("Content-Type","text/html");
+            res.setHeader("charset","utf-8");
+            res.end(data.msg);
+            return ;
+        }
+        res.setHeader("Set-Cookie","access_token="+data.data.access_token+";Domain=dev.kuaizhan.com;httponly;Path=/;");
+        res.end("<html><head> <meta http-equiv=\"content-type\" content=\"text/html; charset=UTF-8\" /></head><body>login success，<a href='/'>Back</a> <a href='/auth/api/users/me'>Test API</a></body></html>");
+
+    })
 }
 
 var proxy_plugin = function (req, res) {
@@ -89,6 +116,7 @@ var proxy_plugin = function (req, res) {
         headers: req.headers,
         gzip: true
     };
+    console.log(p);
     if (/\.(css|js|jpg|jpeg|gif|png)/ig.test(path[path.length - 1])) {
         console.log(p);
         res.writeHead(302, {'Location': req.url.replace('/pp/', '/pf/')});
@@ -126,6 +154,7 @@ var proxy_plugin_api = function (req, res) {
 
     var request = require("request");
     var p = backend_api + req.url.replace('pa/' + plugin_name + '/', '');
+    console.log("proxy :"+p);
     req.headers['Host'] = url.parse(backend_api).host;
     var opt = {
         method: req.method,
@@ -133,14 +162,20 @@ var proxy_plugin_api = function (req, res) {
         headers: req.headers,
         gzip: true
     };
+
     if(req.method.toLowerCase()=="put"||req.method.toLowerCase()=="post"){
+        var data;
         req.on("data",function(chunk){
-            opt.body = chunk;
+            data = chunk;
+        })
+        req.on("end",function(){
+            opt.body = data;
             request(opt).pipe(res);
         })
-    }else{
-       request(opt).pipe(res);
+    } else {
+        request(opt).pipe(res);
     }
+
 
 }
 
@@ -167,6 +202,7 @@ var proxy_plugin_file = function (req, res) {
 
 }
 
+var head_ref = {".js": "application/x-javascript", ".json": "application/json", ".css": "text/css",".png":"image/png","gif":"image/gif","jpg":"image/jpge","jpge":"image/jpge"};
 
 var _handlers = {
     "readfile": function (req, res) {
@@ -185,7 +221,7 @@ var _handlers = {
         if (fs.existsSync(_path)) {
             var extName = path.extname(_path);
             res.writeHead(200, {'Content-Type': head_ref[extName], 'charset': 'utf-8'});
-            res.end(fs.readFileSync(_path, 'utf-8'));
+            res.end(fs.readFileSync(_path));
         } else {
             res.end("");
         }
@@ -199,24 +235,50 @@ var _handlers = {
             if (d[0] == '.') {
                 return;
             }
-            components[d] = [];
+
             if (fs.existsSync(path.join(__dirname, "project/" + d + "/components/"))) {
-                console.log(fs.existsSync(path.join(__dirname, "project/" + d + "/components/")));
+                components[d] = {};
                 fs.readdirSync(path.join(__dirname, "project/" + d + "/components/")).forEach(function (c) {
 
-                    if (c[0] !== '.') {
-                        components[d].push(c);
+                    if (fs.existsSync(path.join(__dirname, "project/" + d + "/components/"+c+"/package.json"))) {
+                        try{
+                        components[d][c] =require("./project/"+d+"/components/"+c+"/package.json");
+                        }catch(e){
+                            components[d][c] = e;
+                        }
                     }
                 });
             }
         });
         res.end(JSON.stringify(components));
     },
+    "readthemes": function (req, res) {
+        res.writeHead(200, {'Content-Type': 'application/json', 'charset': 'utf-8'});
+
+        var plugins = fs.readdirSync(path.join(__dirname, "project/"));
+        var components = {};
+        plugins.forEach(function (d) {
+            if (d[0] == '.') {
+                return;
+            }
+
+            if (fs.existsSync(path.join(__dirname, "project/" + d + "/themes/package.json"))) {
+                components[d] =require("./project/" + d + "/themes/package.json");
+
+            }
+        });
+        res.end(JSON.stringify(components));
+    },
     "homepage": proxy,
+    "passport":proxy,
     "nav": proxy,
     "page": proxy,
+    "pageui":proxy,
+    "plugin":proxy,
+    "preview":proxy,
     "site": proxy,
     "changyan": proxy,
+    "auth": proxy_front,
     "pp": function (req, res) {
         proxy_plugin(req, res);
     },
@@ -225,11 +287,17 @@ var _handlers = {
     },
     "pf": function (req, res) {
         proxy_plugin_file(req, res);
+    },
+    "fp": function (req, res) {
+        proxy_front_plugin(req, res);
+    },
+    "fa": function (req, res) {
+        proxy_front_plugin_api(req, res);
+    },
+    "ff": function (req, res) {
+        proxy_front_plugin_file(req, res);
     }
-
-
 };
-var head_ref = {".js": "application/x-javascript", ".json": "application/json", ".css": "text/css"};
 var handleRequest = function (p, req, res) {
     p = p.toLowerCase();
     if (p in _handlers) {
@@ -243,7 +311,7 @@ var handleRequest = function (p, req, res) {
 http.createServer(function (req, res) {
     var path = url.parse(req.url).pathname.split("/")[1];
     handleRequest(path, req, res);
-}).listen(80, 'dev.kuaizhan.com');
+}).listen(80, 'dev.kuaizhan.com').listen(80,'localhost');
 process.on('uncaughtException', function (err) {
     console.log('Caught exception: ' + err);
 });
