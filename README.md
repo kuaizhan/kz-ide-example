@@ -1,5 +1,4 @@
 # 开发IDE使用帮助
------------------
 
 下载IDE 请访问 : <http://kuaizhan.com/developer/ide>
 
@@ -51,7 +50,6 @@
 
 
 # 基本功能
-----------
 
 ![IDE界面](http://7bede40ef4e00.cdn.sohucs.com/cf7da4981e9ace41993b348eda37e911)
 
