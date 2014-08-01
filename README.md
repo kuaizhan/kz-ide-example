@@ -98,7 +98,7 @@
 
 说明：根据插件package.json转发管理页
 
-例如：插件example 的package.json 如下：
+例如：插件 example 的package.json 如下,使用此组件的用户站点为test.kuaizhan.com：
 
 ```JSON
 
@@ -107,9 +107,9 @@
     "proxy-prefixes": {
         "common": "",
         "backend-page": "http://www.example.com/kuaizhan",
-        "backend-api": "http://api.example.com/",
-        "page": "http://static.example.com/",
-        "api": ""
+        "backend-api": "http://api.example.com",
+        "page": "http://www.example.com/front",
+        "api": "http://www.example.com/front_api"
     },
     "proxy-paths": {
         "common": "*"
@@ -130,7 +130,7 @@ http://www.example.com/kuaizhan/register.html?site_id=8500653249
 
 ---
 
-http://dev.kuaizhan.com/pa/getApi?site_id=8500653249
+http://dev.kuaizhan.com/pa/example/getApi?site_id=8500653249
 
 将转发对如下地址的请求：
 
@@ -138,16 +138,41 @@ http://api.example.com/getApi?site_id=8500653249
 
 ---
 
-http://dev.kuaizhan.com/pf/image/icon.png
+http://test.kuaizhan.com/pp/example/front.html
 
 将转发对如下地址的请求：
 
-http://static.example.com/image/icon.png
+http://www.example.com/front/front.html
+
+---
+
+http://test.kuaizhan.com/pa/example/api
+
+将转发对如下地址的请求：
+
+http://www.example.com/front_api/api
 
 ---
 
 
+
 ## 常见问题
+
+* 运行node server.js 显示 
+
+```
+Caught Exception: Error: listen EACCESS
+```
+
+  mac 或 linux 下请运行： sudo node server.js
+
+  windows 下暂时需要修改端口号后运行
+
+  修改方式：在server.js 文件中找到 .listen(80, 'dev.kuaizhan.com');
+  
+  修改为空闲端口，例如：8010
+
+  *修改后可能会造成部分数据产生跨域问题，影响暂时不打，我们会逐步寻找更多解决办法*
 
 * 显示未登陆用户
 
