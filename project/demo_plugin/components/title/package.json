@@ -1,0 +1,147 @@
+{
+    "eid": "7",
+    "version": "1.0",
+    "name": "title",
+    "disabled": false,
+    "title": "标题",
+    "image_icon": "",
+    "font_icon": "&#xe06e;",
+    "category": 2,
+    "html": "{{#t0}}{{#show_link}}<a href='{{link}}'>{{/show_link}}<div class='mod-title t0 {{class}}' style='margin:{{margin-top}} {{margin-right}} {{margin-bottom}} {{margin-left}};'><h2>{{title}}</h2><i class='font-ico'></i></div>{{#show_link}}</a>{{/show_link}}{{/t0}}{{#t1}}{{#show_link}}<a href='{{link}}'>{{/show_link}}<div class='mod-title t1 {{class}}' style='margin:{{margin-top}} {{margin-right}} {{margin-bottom}} {{margin-left}};'><h2>{{title}}</h2><i class='font-ico'></i></div>{{#show_link}}</a>{{/show_link}}{{/t1}}{{#t2}}{{#show_link}}<a href='{{link}}'>{{/show_link}}<div class='mod-title t2 {{class}}' style='margin:{{margin-top}} {{margin-right}} {{margin-bottom}} {{margin-left}};'><h2>{{title}}</h2><i class='font-ico'></i></div>{{#show_link}}</a>{{/show_link}}{{/t2}}{{#t3}}{{#show_link}}<a href='{{link}}'>{{/show_link}}<div class='mod-title t3 {{class}}' style='margin:{{margin-top}} {{margin-right}} {{margin-bottom}} {{margin-left}};'><h2>{{title}}</h2><i class='font-ico'>●</i></div>{{#show_link}}</a>{{/show_link}}{{/t3}}{{#t4}}{{#show_link}}<a href='{{link}}'>{{/show_link}}<div class='mod-title t4 {{class}}' style='margin:{{margin-top}} {{margin-right}} {{margin-bottom}} {{margin-left}};'><h2>{{title}}</h2><i class='font-ico'></i></div>{{#show_link}}</a>{{/show_link}}{{/t4}}",
+    "data_config": {
+        "title": {
+            "type": "string",
+            "required": true,
+            "default": "标题文字"
+        },
+        "show_link": {
+            "type": "boolean",
+            "required": true,
+            "default": false
+        },
+        "link": {
+            "type": "string",
+            "required": false,
+            "default": ""
+        },
+        "link_res_type": {
+            "type": "enum",
+            "required": true,
+            "default": 3
+        },
+        "link_res_id": {
+            "type": "string",
+            "required": true,
+            "default": ""
+        },
+        "link_res_name": {
+            "type": "string",
+            "required": false,
+            "default": ""
+        },
+        "t0": {
+            "type": "boolean",
+            "required": true,
+            "default": false
+        },
+        "t1": {
+            "type": "boolean",
+            "required": true,
+            "default": true
+        },
+        "t2": {
+            "type": "boolean",
+            "required": true,
+            "default": false
+        },
+        "t3": {
+            "type": "boolean",
+            "required": true,
+            "default": false
+        },
+        "t4": {
+            "type": "boolean",
+            "required": true,
+            "default": false
+        },
+        "margin-top": {
+            "type": "string",
+            "required": false
+        },
+        "margin-right": {
+            "type": "string",
+            "required": false
+        },
+        "margin-bottom": {
+            "type": "string",
+            "required": false
+        },
+        "margin-left": {
+            "type": "string",
+            "required": false
+        }
+    },
+    "widgets": {
+        "style": [
+            {
+                "type": "switchrow",
+                "label": "调整边距",
+                "opt": {
+                    "name": "chk_margin",
+                    "content": {
+                        "type": "margin"
+                    }
+                },
+                "data_name": "margin-top"
+            }
+        ],
+        "property": [
+            {
+                "label": "标题内容",
+                "tip": "请输入不超过20个字",
+                "type": "text",
+                "opt": {},
+                "data_name": "title"
+            },
+            {
+                "data_name": "show_link"
+            },
+            {
+                "data_name": "link"
+            },
+            {
+                "data_name": "link_res_type"
+            },
+            {
+                "data_name": "link_res_id"
+            },
+            {
+                "data_name": "link_res_name"
+            },
+            {
+                "data_name": "t0"
+            },
+            {
+                "data_name": "t1"
+            },
+            {
+                "data_name": "t2"
+            },
+            {
+                "data_name": "t3"
+            },
+            {
+                "data_name": "t4"
+            },
+            {
+                "data_name": "margin-right"
+            },
+            {
+                "data_name": "margin-bottom"
+            },
+            {
+                "data_name": "margin-left"
+            }
+        ]
+    }
+}

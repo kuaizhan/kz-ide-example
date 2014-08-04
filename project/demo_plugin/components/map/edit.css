@@ -1,0 +1,43 @@
+/*15.配置--地图控件 config-map*/
+.config-map {
+}
+
+.config-map .hd {
+}
+
+.config-map .hd strong {
+    color: #666;
+    width: 60px;
+    display: inline-block;
+}
+
+.config-map .tip-input {
+    display: inline-block;
+    margin-left: 60px;
+    margin-top: 8px;
+    color: grey
+}
+
+.config-map .tip-error {
+    margin-left: 60px;
+    margin-top: 8px;
+    color: grey;
+    display: none;
+}
+
+.config-map .tip-word {
+    display: inline-block;
+    margin-left: 60px;
+    margin-top: 12px;
+}
+
+.config-map .hd input[type=text] {
+    width: 202px;
+}
+
+#map {
+    width: 250px;
+    height: 250px;
+    margin-top: 8px;
+    margin-left: 60px;
+}

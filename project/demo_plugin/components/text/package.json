@@ -1,0 +1,63 @@
+{
+    "title": "文本",
+    "image_icon": "",
+    "font_icon": "&#xe809;",
+    "html": "<div class=\"mod mod-text {{class}}\" style=\"margin:{{margin-top}} {{margin-right}} {{margin-bottom}} {{margin-left}};background:{{background}}\">{{richtext}}</div>",
+    "data_config": {
+        "richtext": {
+            "type": "string",
+            "required": true,
+            "default": "默认文本"
+        },
+        "align": {
+            "type": "string",
+            "required": false,
+            "default": "left"
+        },
+        "margin-top": {
+            "type": "string",
+            "required": false
+        },
+        "margin-right": {
+            "type": "string",
+            "required": false
+        },
+        "margin-bottom": {
+            "type": "string",
+            "required": false
+        },
+        "margin-left": {
+            "type": "string",
+            "required": false
+        }
+    },
+    "widgets": {
+        "style": [
+            {
+                "type": "switchrow",
+                "label": "调整边距",
+                "opt": {
+                    "name": "chk_margin",
+                    "content": {
+                        "type": "margin"
+                    }
+                },
+                "data_name": "margin-top"
+            }
+        ],
+        "property": [
+            {
+                "label": "",
+                "type": "richtext",
+                "opt": {
+                    "class": "mod-text"
+                },
+                "data_name": "richtext"
+            },
+            {
+                "data_name": "align"
+            }
+
+        ]
+    }
+}

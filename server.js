@@ -274,6 +274,7 @@ var _handlers = {
     "nav": proxy,
     "page": proxy,
     "pageui":proxy,
+    "pic":proxy,
     "plugin":proxy,
     "preview":proxy,
     "site": proxy,

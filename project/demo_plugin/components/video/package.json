@@ -1,0 +1,57 @@
+{
+    "title": "视频",
+    "image_icon": "",
+    "font_icon": "&#xe025;",
+    "html": "<div class='mod mod-video' {{_progdata_}} data-url='{{video_url}}' data-type='{{video_type}}'><div class='video-play-icon'>{{#image}}<img src='{{image}}' class='pic'>{{/image}}<div class='play-icon'><img src='http://s0.kuaizhan.com/res/skin/images/video-play.png'></div></div></div>",
+    "data_config": {
+        "image": {
+            "type": "string",
+            "required": false
+        },
+        "title": {
+            "type": "string",
+            "required": false
+        },
+        "video_id": {
+            "type": "string",
+            "required": false,
+            "default": 0
+        },
+        "video_type": {
+            "type": "enum",
+            "required": false,
+            "default": ""
+        },
+        "video_url": {
+            "type": "string",
+            "required": false
+        },
+        "url": {
+            "type": "string",
+            "required": false
+        }
+    },
+    "widgets": {
+        "style": [],
+        "property": [
+            {
+                "data_name": "image"
+            },
+            {
+                "data_name": "title"
+            },
+            {
+                "data_name": "video_id"
+            },
+            {
+                "data_name": "video_type"
+            },
+            {
+                "data_name": "video_url"
+            },
+            {
+                "data_name": "url"
+            }
+        ]
+    }
+}

@@ -1,0 +1,104 @@
+{
+    "title": "图片",
+    "image_icon": "",
+    "font_icon": "&#xe03f;",
+    "html": "<div class=\"mod mod-pic mod-picone\" style=\"margin:{{margin-top}} {{margin-right}} {{margin-bottom}} {{margin-left}};\">{{#link}}<a href=\"{{link}}\">{{/link}}<img src=\"{{image}}\" title=\"{{alt}}\" height=\"{{height}}\" data-imgid=\"{{image_id}}\" fit=\"{{fit}}\">{{#link}}</a>{{/link}} </div>",
+    "data_config": {
+        "image": {
+            "type": "string",
+            "required": true,
+            "default": "/res/skin/images/img/pic-one.png"
+        },
+        "image_id": {
+            "type": "int",
+            "required": true,
+            "default": 0
+        },
+        "link": {
+            "type": "string",
+            "required": true
+        },
+        "link_res_type": {
+            "type": "enum",
+            "required": true,
+            "default": 0,
+            "vd_rules": {
+                "expect": {
+                    "values": [
+                        0,
+                        1,
+                        2,
+                        3
+                    ]
+                }
+            }
+        },
+        "link_res_id": {
+            "type": "int",
+            "required": true,
+            "default": 0,
+            "vd_rules": {}
+        },
+        "link_res_name": {
+            "type": "string",
+            "required": true,
+            "default": "",
+            "vd_rules": {}
+        },
+        "margin-top": {
+            "type": "string",
+            "required": false,
+            "category": "style"
+        },
+        "margin-right": {
+            "type": "string",
+            "required": false,
+            "category": "style"
+        },
+        "margin-bottom": {
+            "type": "string",
+            "required": false,
+            "category": "style"
+        },
+        "margin-left": {
+            "type": "string",
+            "required": false,
+            "category": "style"
+        }
+    },
+    "widgets": {
+        "style": [
+            {
+                "type": "switchrow",
+                "label": "调整边距",
+                "opt": {
+                    "name": "chk_margin",
+                    "content": {
+                        "type": "margin"
+                    }
+                },
+                "data_name": "margin-top"
+            }
+        ],
+        "property": [
+            {
+                "data_name": "image"
+            },
+            {
+                "data_name": "image_id"
+            },
+            {
+                "data_name": "link"
+            },
+            {
+                "data_name": "link_res_type"
+            },
+            {
+                "data_name": "link_res_id"
+            },
+            {
+                "data_name": "link_res_name"
+            }
+        ]
+    }
+}
