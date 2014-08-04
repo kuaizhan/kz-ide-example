@@ -3,6 +3,7 @@
 
 下载IDE 请访问 : <http://kuaizhan.com/developer/ide>
 
+Fork us on github: <https://github.com/kuaizhan/kz-ide-example>
 
 ## 运行环境
 
@@ -53,15 +54,22 @@
 # 基本功能
 ----------
 
-![IDE界面](http://7bede40ef4e00.cdn.sohucs.com/cf7da4981e9ace41993b348eda37e911)
+ 首先需要注册快站，并建立快站的测试站点，
+
+ 如果未登录，会显示如下登录提示
+
+![登陆](http://7bede40ef4e00.cdn.sohucs.com/0542648ee9f0ebccaa3ee05987adc0bc)
+
+ 登录完成之后，将返回开发首页
+
+![IDE界面](http://7bede40ef4e00.cdn.sohucs.com/a19f54de73a2d46fcb8dba9d3b9279e6)
 
 
 ## 加载组件
 
-当正常加载组件后，在 "加载组件" 按钮的前面会有下拉列表按插件顺序列出所有组件。
+点击加载组件按钮，会列出您本地project目录下的所有组件列表，选中需要加载的组件，点击加载按钮。在左侧功能区就会出现相应的组件。(如果没有出现，请检查控制台是否有报错)
 
-* 在下拉列表中选择组件，然后点击加载组件后，在组件区域，就会出现加载组件的图标，然后就可以将图标拖拽到手机预览窗口，并且可以打开组件的配置窗口。
-* 在配置窗口中可以修改组件属性。
+![加载组件](http://7bede40ef4e00.cdn.sohucs.com/498720637298d0eb4eb550f35318733b)
 
 
 ## 上传图片
@@ -70,11 +78,29 @@
 * *目前资源仅支持png,jpg,gif 图片*
 
 
+## 前端登录
+
+* 当组件需要对用户进行操作时，可在开发环境模拟登录，然后获取已登录用户信息进行功能开发。
+* 点击 “前端登录” 按钮按步骤进行操作后，便可以通过接口获取当前登录用户数据
+
+## 预览主题
+
+* *现在IDE支持主题开发了。具体开发规范参考: 主题开发规则*
+
+点击"预览主题"按钮后可以打开主题预览窗口
+
+![主题预览](http://7bede40ef4e00.cdn.sohucs.com/2ad3f87daf8c387dbc4202166fe09b12)
+
+点击主题的色块，就可以在当前测试站点下预览主题
+
+
 ## 测试站点设置
 
 * 设置测试站点前，首先需要在快站创建一个测试站。创建成功之后，可以得到站点ID，同时在编辑某个页面时，也可以看到页面ID.
 * 使用站点ID和测试页ID，可以将插件数据对应用户的站点，页面进行关联。
-* 测试站点的数据将保存在cookie中，当服务器端编程需要读取站点id时，也需要从cookie中获取，cookie名：`kz_site`
+* 点击 “设置测试站点”按钮，这里就会列出当前您已经创建的站点，点击一个即可
+
+![测试站点设置](http://7bede40ef4e00.cdn.sohucs.com/cd268ed8bc3cfe50c324f9003cee8799)
 
 
 ## 查看保存数据
@@ -100,7 +126,7 @@
 
 说明：根据插件package.json转发管理页
 
-例如：插件 example 的package.json 如下,使用此组件的用户站点为test.kuaizhan.com：
+例如：插件example 的package.json 如下：
 
 ```JSON
 
@@ -109,9 +135,9 @@
     "proxy-prefixes": {
         "common": "",
         "backend-page": "http://www.example.com/kuaizhan",
-        "backend-api": "http://api.example.com",
-        "page": "http://www.example.com/front",
-        "api": "http://www.example.com/front_api"
+        "backend-api": "http://api.example.com/",
+        "page": "http://static.example.com/",
+        "api": ""
     },
     "proxy-paths": {
         "common": "*"
@@ -132,7 +158,7 @@ http://www.example.com/kuaizhan/register.html?site_id=8500653249
 
 ---
 
-http://dev.kuaizhan.com/pa/example/getApi?site_id=8500653249
+http://dev.kuaizhan.com/pa/getApi?site_id=8500653249
 
 将转发对如下地址的请求：
 
@@ -140,27 +166,18 @@ http://api.example.com/getApi?site_id=8500653249
 
 ---
 
-http://test.kuaizhan.com/pp/example/front.html
+http://dev.kuaizhan.com/pf/image/icon.png
 
 将转发对如下地址的请求：
 
-http://www.example.com/front/front.html
+http://static.example.com/image/icon.png
 
 ---
-
-http://test.kuaizhan.com/pa/example/api
-
-将转发对如下地址的请求：
-
-http://www.example.com/front_api/api
-
----
-
 
 
 ## 常见问题
 
-* 运行node server.js 显示 
+* 运行node server.js 显示
 
 ```
 Caught Exception: Error: listen EACCESS
@@ -171,7 +188,7 @@ Caught Exception: Error: listen EACCESS
   windows 下暂时需要修改端口号后运行
 
   修改方式：在server.js 文件中找到 .listen(80, 'dev.kuaizhan.com');
-  
+
   修改为空闲端口，例如：8010
 
   *修改后可能会造成部分数据产生跨域问题，影响暂时不打，我们会逐步寻找更多解决办法*
@@ -183,6 +200,5 @@ Caught Exception: Error: listen EACCESS
 * 显示不正确的站点ID或者没有权限
 
    修改测试站点，将测试站点ID设置为已登陆用户的站点ID.
-
 
 *常见问题内容补充中*
