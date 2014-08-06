@@ -1,10 +1,12 @@
+var host = "kuaizhan";
+
 var template = [' ',
     '<!DOCTYPE html>',
     '<html>',
     '<head>',
     '<meta http-equiv="content-type" content="text/html; charset=UTF-8">',
     '    <script>',
-    '        var staticurl = "http://s0.kuaizhan.com";',
+    '        var staticurl = "http://s0.'+host+'.com";',
     '    </script>',
     '</head>',
     '<body>',
@@ -32,8 +34,8 @@ var renderIDE = function (req, res) {
 
 var proxy = function (req, res) {
     var request = require("request");
-    var p = 'http://www.kuaizhan.com' + req.url;
-    req.headers['Host'] = "www.kuaizhan.com";
+    var p = 'http://www.'+host+'.com' + req.url;
+    req.headers['Host'] = "www."+host+".com";
     var opt = {
         method: req.method,
         url: p,
@@ -244,7 +246,8 @@ var _handlers = {
                         try{
                         components[d][c] =require("./project/"+d+"/components/"+c+"/package.json");
                         }catch(e){
-                            components[d][c] = e;
+                            console.log(e);
+                            //components[d][c] = e;
                         }
                     }
                 });

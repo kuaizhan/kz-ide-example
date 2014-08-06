@@ -33,11 +33,11 @@
                 "label": "宽度",
                 "type": "slider",
                 "opt": {
+                    "name":"width",
                     "min": 0,
                     "max": 100,
                     "unit": "%"
-                },
-                "data_name": "width"
+                }
             },
             {
                 "type": "switchrow",
@@ -47,8 +47,7 @@
                     "content": {
                         "type": "margin"
                     }
-                },
-                "data_name": "margin-top"
+                }
             }
         ],
         "property": [

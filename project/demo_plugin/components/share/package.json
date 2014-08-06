@@ -69,29 +69,6 @@
                 },
                 "data_name": "margin-top"
             }
-        ],
-        "property": [
-            {
-                "data_name": "qzone"
-            },
-            {
-                "data_name": "sina"
-            },
-            {
-                "data_name": "renren"
-            },
-            {
-                "data_name": "sohu"
-            },
-            {
-                "data_name": "weixin"
-            },
-            {
-                "data_name": "douban"
-            },
-            {
-                "data_name": "qqweibo"
-            }
         ]
     }
 }
