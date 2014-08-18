@@ -8,7 +8,7 @@
             "category": "style",
             "type": "string",
             "required": true,
-            "default": "50%"
+            "default": "50"
         },
         "margin-top": {
             "type": "string",
@@ -37,7 +37,8 @@
                     "min": 0,
                     "max": 100,
                     "unit": "%"
-                }
+                },
+                "data_name":"width"
             },
             {
                 "type": "switchrow",
