@@ -1,0 +1,30 @@
+/*12.组图控件 mod-wedding-swipe*/
+.mod-wedding-swipe {
+}
+.mod-wedding-swipe {
+    overflow: hidden;
+    /*visibility: hidden;*/
+    position: relative;
+}
+.mod-wedding-swipe .swipe-wrap {
+    overflow: hidden;
+    position: relative;
+}
+.mod-wedding-swipe .swipe-wrap > div {
+    float:left;
+    width:100%;
+    position: relative;
+}
+.mod-wedding-swipe .layout-col3{
+
+}
+.mod-wedding-swipe .layout-col3 .pic-item{
+    width:32%;
+    margin-left:1%;
+    display:inline-block;
+}
+.mod-wedding-swipe .layout-col1 .pic-item{
+    width:98%;
+    margin:0 1%;
+    display:block;
+}

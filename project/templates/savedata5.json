@@ -1,0 +1,24 @@
+[
+  {
+    "eid": "34",
+    "name": "mobile_button",
+    "version": "2.0.4",
+    "deletable": true,
+    "configurable": true,
+    "movable": true,
+    "value": {
+      "theme_color": true,
+      "tel": "",
+      "text": "联系电话",
+      "align": "",
+      "margin-right": "",
+      "height": "",
+      "width": "",
+      "margin-top": "",
+      "margin-left": "",
+      "margin-bottom": "",
+      "type": "highlight"
+    },
+    "ename": "system_plugin/mobile_button"
+  }
+]

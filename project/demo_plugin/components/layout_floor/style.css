@@ -1,0 +1,16 @@
+.mod-layout_floor{
+    overflow:hidden;
+}
+.phone-editing .mod-layout_floor{
+     overflow:visible;
+ }
+.mod-wedding-floor.wedding-floor-A{
+     background:-webkit-gradient(linear, 0 0, 0 100%, from(transparent), to(rgba(224,105,125,.8)));
+}
+.mod-wedding-floor.wedding-floor-B{
+    background:-webkit-gradient(linear, 0 0, 0 100%, from(transparent), to(rgba(24,105,125,.8)));
+}
+.mod-wedding-floor.wedding-floor-C{
+    background:-webkit-gradient(linear, 0 0, 0 100%, from(transparent), to(rgba(255,255,255,1)));
+}
+

@@ -1,0 +1,40 @@
+[
+    {
+        "eid": "16",
+        "name": "text",
+        "version": "2.0.4",
+        "deletable": true,
+        "configurable": true,
+        "movable": true,
+        "value": {
+            "align": "left",
+            "margin-left": "",
+            "margin-bottom": "",
+            "margin-top": "",
+            "margin-right": "",
+            "richtext": "默认文本"
+        },
+        "ename": "system_plugin/text"
+    },
+    {
+        "eid": "18",
+        "name": "pic",
+        "version": "2.0.4",
+        "deletable": true,
+        "configurable": true,
+        "movable": true,
+        "value": {
+            "link_res_type": 0,
+            "link_res_id": 0,
+            "image": "/res/skin/images/img/pic-one.png",
+            "margin-right": "",
+            "margin-bottom": "",
+            "image_id": 0,
+            "margin-top": "",
+            "link": "javascript:;",
+            "link_res_name": "",
+            "margin-left": ""
+        },
+        "ename": "system_plugin/pic"
+    }
+]

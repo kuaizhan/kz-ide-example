@@ -1,0 +1,107 @@
+[
+    {
+        "eid": "16",
+        "name": "text",
+        "version": "2.0.4",
+        "deletable": true,
+        "configurable": true,
+        "movable": true,
+        "value": {
+            "align": "left",
+            "margin-left": "",
+            "margin-bottom": "",
+            "margin-top": "",
+            "margin-right": "",
+            "richtext": "默认文本"
+        },
+        "ename": "system_plugin/text"
+    },
+    {
+        "eid": "4",
+        "name": "nav",
+        "version": "2.0.4",
+        "deletable": true,
+        "configurable": true,
+        "movable": true,
+        "value": {
+            "items": [
+                {
+                    "link_res_type": 3,
+                    "link_res_id": 0,
+                    "title": "导航1",
+                    "width": "25%",
+                    "link": "javascript:;",
+                    "link_res_name": ""
+                },
+                {
+                    "link_res_type": 3,
+                    "link_res_id": 0,
+                    "title": "导航2",
+                    "width": "25%",
+                    "link": "javascript:;",
+                    "link_res_name": ""
+                },
+                {
+                    "link_res_type": 3,
+                    "link_res_id": 0,
+                    "title": "导航3",
+                    "width": "25%",
+                    "link": "javascript:;",
+                    "link_res_name": ""
+                },
+                {
+                    "link_res_type": 3,
+                    "link_res_id": 0,
+                    "title": "导航4",
+                    "width": "25%",
+                    "link": "javascript:;",
+                    "link_res_name": ""
+                }
+            ],
+            "margin-right": "",
+            "margin-bottom": "",
+            "margin-top": "",
+            "nav_theme": "theme1",
+            "margin-left": ""
+        },
+        "ename": "system_plugin/nav"
+    },
+    {
+        "eid": "20",
+        "name": "focus",
+        "version": "2.0.4",
+        "deletable": true,
+        "configurable": true,
+        "movable": true,
+        "value": {
+            "items": [],
+            "margin-left": "",
+            "margin-bottom": "",
+            "margin-top": "",
+            "margin-right": "",
+            "height_percent": "75%"
+        },
+        "ename": "system_plugin/focus"
+    },
+    {
+        "eid": "18",
+        "name": "pic",
+        "version": "2.0.4",
+        "deletable": true,
+        "configurable": true,
+        "movable": true,
+        "value": {
+            "link_res_type": 0,
+            "link_res_id": 0,
+            "image": "/res/skin/images/img/pic-one.png",
+            "margin-right": "",
+            "margin-bottom": "",
+            "image_id": 0,
+            "margin-top": "",
+            "link": "javascript:;",
+            "link_res_name": "",
+            "margin-left": ""
+        },
+        "ename": "system_plugin/pic"
+    }
+]

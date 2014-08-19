@@ -1,0 +1,67 @@
+{
+    "title": "图片集",
+    "image_icon": "",
+    "font_icon": "&#xe03f;",
+    "html": "<div class='swipe mod-wedding-swipe' {{_progdata_}} data-class='{{class}}' data-items='{{items_txt}}'><div class='swipe-wrap'> </div> </div> ",
+    "data_config": {
+        "items": {
+            "type": "array",
+            "required": true,
+            "default": [
+                {
+                    "link": "javascript:;",
+                    "link_res_type": 0,
+                    "link_res_id": 0,
+                    "link_res_name": "",
+                    "image_id": 0,
+                    "image": "http://7bede40ef4e00.cdn.sohucs.com/cb95b4342b341e983737c18041bc71cc",
+                    "show_text": true,
+                    "text": "在选项中可以添加图片描述"
+                }
+            ]
+        },
+        "class":{
+            "type":"string",
+            "required":"true",
+            "default":"col1"
+        }
+    },
+    "widgets": {
+        "style": [
+            {
+                "label": "布局类型",
+                "type": "typeselect",
+                "opt": {
+                    "name": "class",
+                    "options": [
+                        {
+                            "value": "col1",
+                            "content": "样式一"
+                        },
+                        {
+                            "value": "col3",
+                            "content": "样式二"
+                        }
+                    ]
+                },
+                "data_name": "class"
+            }
+        ],
+        "property": [
+            {
+                "label": "",
+                "type": "picedit",
+                "opt": {
+
+                    "name": "items",
+                    "value": [],
+                    "edit_desc": true,
+                    "edit_link": true,
+                    "mode": 99
+
+                },
+                "data_name": "items"
+            }
+        ]
+    }
+}

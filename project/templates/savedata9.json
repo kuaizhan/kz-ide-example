@@ -1,0 +1,15 @@
+[
+  {
+    "deletable": true,
+    "configurable": true,
+    "movable": true,
+    "value": {
+      "class": "wedding-floor-A",
+      "height": "300px"
+    },
+    "ename": "wedding_theme/components/wedding_layout_floor/",
+    "items": [
+      []
+    ]
+  }
+]

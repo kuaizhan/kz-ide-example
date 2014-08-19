@@ -1,0 +1,52 @@
+{
+
+    "title": "渐变色底板",
+    "image_icon": "http://7bede40ef4e00.cdn.sohucs.com/9641d0e6edf33f8fadcbbf1878d71a3e",
+    "font_icon": "",
+    "html": "<div class=\"mod sub_container mod-wedding-floor {{class}}\" style=\"height:{{height}};\">{{content}}</div>",
+    "data_config": {
+        "class": {
+            "type": "string",
+            "default": "wedding-floor-A"
+        },
+
+        "height": {
+            "type": "string",
+            "default": "300px"
+        }
+
+    },
+    "widgets": {
+        "style": [
+            {
+                "label": "渐变类型",
+                "type": "typeselect",
+                "opt": {
+                    "name": "class",
+                    "options": [
+                        {
+                            "value": "wedding-floor-A",
+                            "content": "样式一"
+                        },
+                        {
+                            "value": "wedding-floor-B",
+                            "content": "样式二"
+                        }
+                    ]
+                },
+                "data_name": "class"
+            },
+            {
+                "label": "容器高度",
+                "type": "text",
+                "opt": {
+                    "name": "height"
+                },
+                "data_name": "height"
+            }
+        ],
+        "property": [
+
+        ]
+    }
+}
