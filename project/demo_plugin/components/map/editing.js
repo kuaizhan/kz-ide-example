@@ -1,8 +1,23 @@
 /*
  组件类定义。
+
+ 依赖关系说明：
+
+ jquery: 工具类，如果需要Jquery 库，需要在define中引用
+ component: 组件基础类，所有组件必须继承自此类
+ lib/mustache: mustache库，用于进行模板渲染
+ utils/uiHelper: 用于将Package.json中的widgets 渲染为页面的配置窗口的工具
+ baiduMapApi: 百度地图开放平台的JS资源，由于资源非AMD加载，所以加载后将在window对象下
+
+
  */
-define(['jquery', 'configurableComponent', 'lib/mustache', 'ui', 'baiduMapApi'], function($, Component, mustache) {
+define(['jquery', 'component', 'lib/mustache','utils/uiHelper', 'baiduMapApi'], function($, Component, mustache,uiHelper) {
     'use strict';
+
+    /*
+    * 自定义baiduMap对象，实现地图查询等操作
+    * @component 地图组件的实例对象
+    * */
     var baiduMap = function(component) {
         this.component = component;
         this.map = new BMap.Map(component.$configEl.find("#map")[0], {"enableMapClick": false});
@@ -108,24 +123,20 @@ define(['jquery', 'configurableComponent', 'lib/mustache', 'ui', 'baiduMapApi'],
         renderView: function() {
 
             this.html_edit = this.html_edit.replace("#place_mark#", "http://7bede40ef4e00.cdn.sohucs.com/defc4f288e402d0777f28adaeac3c6f1");
-            Component.prototype.renderView.apply(this, arguments);
+            this.$viewEl.html(mustache.render(this.html_edit,this.getData()));
         },
         renderConfigurator: function() {
-            Component.prototype.renderConfigurator.call(this);
-            
-            this.$propertyPanel.html(mustache.render(this.config_edit, {"tip-light": "http://7bede40ef4e00.cdn.sohucs.com/7c95a96a13b65cb950f1d9f27243e573", "tip-error": "http://7bede40ef4e00.cdn.sohucs.com/8addad44d3b0639885306624cb4357aa"}));
-            this.$propertyPanel.find(".tip-error").hide();
+            var panels =uiHelper.createConfiguartor(this);
+
+            panels.$propertyPanel.html(mustache.render(this.config_edit, {"tip-light": "http://7bede40ef4e00.cdn.sohucs.com/7c95a96a13b65cb950f1d9f27243e573", "tip-error": "http://7bede40ef4e00.cdn.sohucs.com/8addad44d3b0639885306624cb4357aa"}));
+            panels.$propertyPanel.find(".tip-error").hide();
             var map = new baiduMap(this);
             map.mapModuleShow();
             this.$configEl.delegate(".btn-assist", "click", function() {
                 map.mapSearch();
             });
 
-            this.listenMargin();
         }
     });
 
-}, function() {
-    //console.log("地图组件创建失败")
-    //console.log(arguments);
 });
