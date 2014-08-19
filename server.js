@@ -233,21 +233,21 @@ var _handlers = {
             req.on("end", function () {
                 if (postData) {
                     try {
-                        var filename=postData.filename;
-                        var data =postData.content;
-                        var  _path = path.join(__dirname, 'project/templates/', filename);
+                        var filename = postData.filename;
+                        var data = postData.content;
+                        var _path = path.join(__dirname, 'project/templates/', filename);
                         fs.writeFileSync(_path, data);
-                        res.end(JSON.stringify({success:1}));
+                        res.end(JSON.stringify({success: 1}));
                     } catch (e) {
-                        res.end(JSON.stringify({error:1,msg: e.message}));
+                        res.end(JSON.stringify({error: 1, msg: e.message}));
                     }
 
                 } else {
-                    res.end(JSON.stringify({error:1,msg:'未获取到数据'}));
+                    res.end(JSON.stringify({error: 1, msg: '未获取到数据'}));
                 }
             })
         } else {
-            res.end(JSON.stringify({error:1,msg:'请用pst'}));
+            res.end(JSON.stringify({error: 1, msg: '请用pst'}));
         }
     },
     "project": function (req, res) {
@@ -271,8 +271,12 @@ var _handlers = {
                 return;
             }
 
+            if (fs.existsSync(path.join(__dirname, "project/" + d + "/package.json"))) {
+                components[d] =components[d]|| {};
+                components[d]["package.json"] = require("./project/" + d + "/package.json");
+            }
             if (fs.existsSync(path.join(__dirname, "project/" + d + "/components/"))) {
-                components[d] = {};
+                components[d] =components[d]|| {};
                 fs.readdirSync(path.join(__dirname, "project/" + d + "/components/")).forEach(function (c) {
 
                     if (fs.existsSync(path.join(__dirname, "project/" + d + "/components/" + c + "/package.json"))) {
