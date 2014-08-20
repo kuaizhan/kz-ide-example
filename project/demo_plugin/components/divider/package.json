@@ -2,7 +2,7 @@
     "title": "分隔符",
     "image_icon": "",
     "font_icon": "&#xe02d;",
-    "html": "<div class=\"mod mod-divider\" style=''><hr style=\"width:{{width}}\"></div>",
+    "html": "<div class=\"mod mod-demo-divider\" style=''><hr style=\"width:{{width}}\"></div>",
     "data_config": {
         "width": {
             "category": "style",
