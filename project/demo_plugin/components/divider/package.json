@@ -2,29 +2,13 @@
     "title": "分隔符",
     "image_icon": "",
     "font_icon": "&#xe02d;",
-    "html": "<div class=\"mod mod-divider\" style='margin:{{margin-top}} {{margin-right}} {{margin-bottom}} {{margin-left}};'><hr style=\"width:{{width}}\"></div>",
+    "html": "<div class=\"mod mod-divider\" style=''><hr style=\"width:{{width}}\"></div>",
     "data_config": {
         "width": {
             "category": "style",
             "type": "string",
             "required": true,
             "default": "50"
-        },
-        "margin-top": {
-            "type": "string",
-            "required": false
-        },
-        "margin-right": {
-            "type": "string",
-            "required": false
-        },
-        "margin-bottom": {
-            "type": "string",
-            "required": false
-        },
-        "margin-left": {
-            "type": "string",
-            "required": false
         }
     },
     "widgets": {
@@ -39,16 +23,6 @@
                     "unit": "%"
                 },
                 "data_name":"width"
-            },
-            {
-                "type": "switchrow",
-                "label": "调整边距",
-                "opt": {
-                    "name": "chk_margin",
-                    "content": {
-                        "type": "margin"
-                    }
-                }
             }
         ],
         "property": [
