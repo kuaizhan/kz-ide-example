@@ -28,6 +28,10 @@ define(['jquery', 'component', 'lib/mustache','utils/uiHelper', 'baiduMapApi'], 
         this.lng = parseFloat(this.component.data["lng"]);
         this.lat = parseFloat(this.component.data["lat"]);
         this.zoom = parseInt(this.component.data["zoom"]);
+        var that= this;
+        setTimeout(function(){
+            that.mapModuleShow();
+        },100);
     };
 
     baiduMap.prototype.mapModuleShow = function() {
@@ -104,7 +108,7 @@ define(['jquery', 'component', 'lib/mustache','utils/uiHelper', 'baiduMapApi'], 
 
     //初始化组件类，参数为组件配置，如果组件第一次创建，将传递空配置，如果组件为已经创建到视图窗口，重新加载，将传递已保存的配置
     return Component.extend({
-        "html_edit": "<div class=\"mod mod-map\" style='margin:{{margin-top}} {{margin-right}} {{margin-bottom}} {{margin-left}};' data-map=\"{'lat':'{{lat}}','lng':'{{lng}}','zoom':'{{zoom}}'}\"><img style=\"width:100%;height:auto;display:block;margin-left:auto;margin-right:auto;\" src=\"http://api.map.baidu.com/staticimage?width=320&height=240&center={{lng}},{{lat}}&zoom={{zoom}}&markers={{lng}},{{lat}}&markerStyles=-1,#plack_mark#,-1\"/></div>",
+        "html_edit": "<div class=\"mod mod-map\" data-map=\"{'lat':'{{lat}}','lng':'{{lng}}','zoom':'{{zoom}}'}\"><img style=\"width:100%;height:auto;display:block;margin-left:auto;margin-right:auto;\" src=\"http://api.map.baidu.com/staticimage?width=320&height=240&center={{lng}},{{lat}}&zoom={{zoom}}&markers={{lng}},{{lat}}&markerStyles=-1,#plack_mark#,-1\"/></div>",
         //输出到配置窗口，事件绑定使用$el.delegate 绑定，当删除$el时同时删除对应事件
         "config_edit": '   <div class="config-map">            \
       <div class="hd">                                                    \
@@ -112,24 +116,21 @@ define(['jquery', 'component', 'lib/mustache','utils/uiHelper', 'baiduMapApi'], 
     <input type="button" class="btn btn-assist" value="搜索">             \
     </div>                                                                \
     <span class="tip-input">                                               \
-    <img src="{{tip-light}}" alt="" />&nbsp;&nbsp;请输入地址, 例如: 中关村东路80号 \
+    <img src="http://7bede40ef4e00.cdn.sohucs.com/7c95a96a13b65cb950f1d9f27243e573" alt="" />&nbsp;&nbsp;请输入地址, 例如: 中关村东路80号 \
     </span>                                                                                                            \
-    <span class="tip-error">                                                                                           \
-    <img src="{{tip-error}}" alt="" />&nbsp;&nbsp;没有找到该地址, 请重新输入       \
+    <span class="tip-error" style="display:none">                                                                                           \
+    <img src="http://7bede40ef4e00.cdn.sohucs.com/8addad44d3b0639885306624cb4357aa" alt="" />&nbsp;&nbsp;没有找到该地址, 请重新输入       \
     </span>                                                                                                            \
     <span class="tip-word">鼠标点击下方图区, 标注目标位置</span>                                                           \
   <div id="map"></div>                                                                                                \
  </div>',
         renderView: function() {
 
-            this.html_edit = this.html_edit.replace("#place_mark#", "http://7bede40ef4e00.cdn.sohucs.com/defc4f288e402d0777f28adaeac3c6f1");
             this.$viewEl.html(mustache.render(this.html_edit,this.getData()));
         },
         renderConfigurator: function() {
             var panels =uiHelper.createConfiguartor(this);
-
-            panels.$propertyPanel.html(mustache.render(this.config_edit, {"tip-light": "http://7bede40ef4e00.cdn.sohucs.com/7c95a96a13b65cb950f1d9f27243e573", "tip-error": "http://7bede40ef4e00.cdn.sohucs.com/8addad44d3b0639885306624cb4357aa"}));
-            panels.$propertyPanel.find(".tip-error").hide();
+            panels.$propertyPanel.html(this.config_edit);
             var map = new baiduMap(this);
             map.mapModuleShow();
             this.$configEl.delegate(".btn-assist", "click", function() {
