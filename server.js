@@ -1,4 +1,4 @@
-var host = "kuaizhan";
+var host = "t1";
 
 var template = [' ',
     '<!DOCTYPE html>',
@@ -194,6 +194,7 @@ var proxy_plugin_file = function (req, res) {
     var request = require("request");
     var p = backend_api + req.url.replace('pf/' + plugin_name + '/', '');
     req.headers['Host'] = url.parse(backend_api).host;
+
     var opt = {
         method: req.method,
         url: p,
