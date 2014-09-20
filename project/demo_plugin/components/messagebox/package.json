@@ -2,7 +2,7 @@
     "title": "弹出消息框",
     "image_icon": "http://47225000.zhan.imgcdn.sohucs.com/7bef0a2486b159925972d6b4b02bd38e-240-180",
     "font_icon": "&#xe02d;",
-    "html": "<div class=\"mod mod-demo-messagebox\" style='' {{_progdata_}}><input type='button' value='{{label}}'/> </div>",
+    "html": "<div class=\"mod mod-demo-messagebox\" style='' {{_progdata_}}><input type='button' value=\"{{label}}\"/><input type='text' name='tbmesg' value=''> </div>",
     "data_config": {
         "label": {
             "type": "string",

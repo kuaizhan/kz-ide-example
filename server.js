@@ -1,4 +1,4 @@
-var host = "t1";
+var host = "kuaizhan";
 
 var template = [' ',
     '<!DOCTYPE html>',

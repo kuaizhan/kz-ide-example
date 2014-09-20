@@ -4,8 +4,10 @@ define(['zepto'], function ($) {
         return {
             //输出到发布页面，当用户正式发布后，调用此函数创建视图。
             onAfterRender: function (el, window, document) {
-                $(el).on("click",function () {
-                    alert("123");
+                $(el).delegate("input[type='button']","click",function(){
+                   alert($(el).find("input[type='text']").val());
+                    //alert ($(el).find(":text").val());
+                    //alert($(el).find("input[name='tbmesg']").val());
                 });
             }
         }
