@@ -3,7 +3,8 @@
  */
 define(["jquery", "component", 'lib/mustache', 'utils/uiHelper'], function ($, Component, mustache, uiHelper) {
         'user strict';
-        var search = function () {
+        var search = function (that) {
+						console.log(that);
             var cityUrl = 'http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=js';
             var date = new Date();
             var day = new Array("星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日", "星期一", "星期二", "星期三", "星期四");
@@ -23,8 +24,8 @@ define(["jquery", "component", 'lib/mustache', 'utils/uiHelper'], function ($, C
                         success: function (data) {
                             var _w = window.SWther.w[citytq];
                             var i = 0;
-                            var _tr = $(".weather_ul").find("li");
-                            var _td = $(".weather_ul_today").find("li");
+                            var _tr = $(that.$viewEl).find(".weather_ul").find("li");
+                            var _td = $(that.$viewEl).find(".weather_ul_today").find("li");
                             for (var key in _w) {
                                 if (key == 0) {
                                     $(_td[0]).html("&nbsp&nbsp" + citytq);
@@ -68,22 +69,21 @@ define(["jquery", "component", 'lib/mustache', 'utils/uiHelper'], function ($, C
             renderConfigurator: function () {
                 var that = this;
                 uiHelper.createConfiguartor(this);
-                search();
+                search(that);
                 this.listen("color", function (ev) {
                     that.data["color"] = ev.target.value;
                     that.renderView();
-                    search();
-
+                    search(that);
                 });
                 this.listen("color2", function (ev) {
                     that.data["color2"] = ev.target.value;
                     that.renderView();
-                    search();
+                    search(that);
                 });
                 this.listen("text_color", function (ev) {
                     that.data["text_color"] = ev.target.value;
                     that.renderView();
-                    search();
+                    search(that);
                 });
             },
             listen: function (name, fn) {
