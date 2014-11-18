@@ -1,0 +1,7 @@
+body {
+    position: static;
+}
+
+.weather_ul hr{
+	margin: 0 0 1.45em;
+}
